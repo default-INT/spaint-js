@@ -1,6 +1,9 @@
-import Spaint from "./spaint";
+import Spaint, {node} from "./spaint";
 
-const Title = Spaint.createElement("h1", null, "InnerTitle");
+const Title = node({
+    type: 'h1',
+    content: 'InnerTitle'
+})
 
 const Header = Spaint.createClass({
     componentWillMount() {
@@ -10,23 +13,38 @@ const Header = Spaint.createClass({
 
     render() {
         console.log(this.state);
-        return Spaint.createElement('header', null, this.props.children);
+        return node({
+            type: 'header',
+            content: this.props.children
+        });
     }
 });
 
 Spaint.render(
-    Spaint.createElement(Header, null, [Title, Title, Title]), document.getElementById("root")
+    node({
+        type: Header,
+        content: [Title, Title, Title]
+    }), document.getElementById("root")
 );
 
 setTimeout(function () {
     const InnerTitle = Spaint.createClass({
         render() {
-            return Spaint.createElement("h1", null, "Tether")
+            return node({
+                type: 'h1',
+                content: 'Theater'
+            })
         }
     });
 
     Spaint.render(
-        Spaint.createElement(Header, null, [Spaint.createElement(InnerTitle), Spaint.createElement(InnerTitle)]),
+        node({
+            type: Header,
+            content: [
+                node({type: InnerTitle}),
+                node({type: InnerTitle})
+            ]
+        }),
         document.getElementById("root")
     );
 }, 2000);

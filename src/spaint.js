@@ -45,7 +45,7 @@ const Spaint = {
      *
      * @param type {function | string}
      * @param props {Object}
-     * @param children {{type: *, props: (*|{})}[]}
+     * @param children {{type: *, props: (*|{})}[]|undefined}
      * @returns {{type: *, props: (*|{})}}
      */
     createElement(type, props, children) {
@@ -113,6 +113,19 @@ function getTopLevelComponentInContainer(container) {
  */
 function updateRootComponent(prevComponent, nextElement) {
     SpaintReconciler.receiveComponent(prevComponent, nextElement);
+}
+
+/**
+ * The function return Saint-component describe element on virtual DOM.
+ *
+ * @param option
+ * @returns {{type: *, props: (*|{})}}
+ */
+export function node(option) {
+    const type = option.type ? option.type : "div";
+    const props = option.props ? option.props : null;
+    const children = option.content ? option.content : null;
+    return Spaint.createElement(type, props, children);
 }
 
 export default Spaint
