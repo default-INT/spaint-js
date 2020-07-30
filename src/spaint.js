@@ -45,7 +45,7 @@ const Spaint = {
      *
      * @param type {function | string}
      * @param props {Object}
-     * @param children {String | function[] | function}
+     * @param children {{type: *, props: (*|{})}[]}
      * @returns {{type: *, props: (*|{})}}
      */
     createElement(type, props, children) {
@@ -105,6 +105,12 @@ function getTopLevelComponentInContainer(container) {
     return container.__spaintComponentInstance;
 }
 
+/**
+ * The equals prev component and next component, and if component changes, update them.
+ *
+ * @param prevComponent
+ * @param nextElement
+ */
 function updateRootComponent(prevComponent, nextElement) {
     SpaintReconciler.receiveComponent(prevComponent, nextElement);
 }

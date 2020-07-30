@@ -15,31 +15,28 @@ class SpaintDOMComponent {
         const lastProps = prevElement.props;
         const nextProps = nextElement.props;
 
-        if (prevElement.props.children.length !== nextElement.props.children.length) {
-            this.unmountComponent();
-            const spaintComponent = instantiateSpaintComponent(nextElement);
-            spaintComponent.mountComponent(this._hostNode.parentElement);
-        }
-
         this._updateDOMProperties(lastProps, nextProps);
-        this._updateDOMChildren(lastProps, nextProps);
+        this._updateDOMChildren(prevElement, nextElement);
 
         this._currentElement = nextElement;
     }
 
     _updateDOMProperties(lastProps, nextProps) {
-        // nothing to do! I'll explain why below
+        // nothing to do! I'll explain why below. TODO: Update CSS
     }
 
-    _updateDOMChildren(lastProps, nextProps) {
-        const lastContent = lastProps.children;
-        const nextContent = nextProps.children;
+    _updateDOMChildren(prevElement, nextElement) {
+        const lastContent = prevElement.props.children;
+        const nextContent = nextElement.props.children;
 
         if (!nextContent) {
             this.updateTextContent('');
-        } else if (lastContent !== nextContent) {
+        } else if (JSON.stringify(lastContent) !== JSON.stringify(nextContent)) {   //TODO: use correct equals.
             //nextContent.mountComponent(this._hostNode.parentElement);
             //this.updateTextContent('' + nextContent);
+            this.unmountComponent();
+            const spaintComponent = instantiateSpaintComponent(nextElement);
+            spaintComponent.mountComponent(this._hostNode.parentElement);
         }
     }
 
