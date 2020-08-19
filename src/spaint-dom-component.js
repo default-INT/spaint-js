@@ -34,9 +34,19 @@ class SpaintDOMComponent {
         } else if (JSON.stringify(lastContent) !== JSON.stringify(nextContent)) {   //TODO: use correct equals.
             //nextContent.mountComponent(this._hostNode.parentElement);
             //this.updateTextContent('' + nextContent);
-            this.unmountComponent();
-            const spaintComponent = instantiateSpaintComponent(nextElement);
-            spaintComponent.mountComponent(this._hostNode.parentElement);
+            this.unmountInnerComponent();
+            if (nextContent instanceof Array) {
+                for (const comp in nextContent) {
+                    const spaintComponent = instantiateSpaintComponent(nextContent[comp]);
+                    spaintComponent.mountComponent(this._hostNode);
+                }
+            } else if (typeof nextContent == 'string') {
+                this.updateTextContent(nextContent);
+            } else {
+                const spaintComponent = instantiateSpaintComponent(nextContent);
+                spaintComponent.mountComponent(this._hostNode);
+            }
+
         }
     }
 
@@ -76,7 +86,7 @@ class SpaintDOMComponent {
         return domElement;
     }
 
-    unmountComponent() {
+    unmountInnerComponent() {
         this._hostNode.innerHTML = '';
     }
 }

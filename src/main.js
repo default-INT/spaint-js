@@ -23,7 +23,7 @@ const Header = Spaint.createClass({
 Spaint.render(
     node({
         type: Header,
-        content: [Title, Title, Title]
+        content: ['Text', Title, Title]
     }), document.getElementById("root")
 );
 
@@ -40,10 +40,7 @@ setTimeout(function () {
     Spaint.render(
         node({
             type: Header,
-            content: [
-                node({type: InnerTitle}),
-                node({type: InnerTitle})
-            ]
+            content: ['Text', Title, Title]
         }),
         document.getElementById("root")
     );

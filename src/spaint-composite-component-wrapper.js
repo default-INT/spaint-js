@@ -1,4 +1,5 @@
 import SpaintDOMComponent from "./spaint-dom-component";
+import Spaint from "./spaint";
 
 
 export default class SpaintCompositeComponentWrapper {
@@ -93,6 +94,8 @@ export function instantiateSpaintComponent(element) {
         return new SpaintDOMComponent(element);
     } else if (typeof element.type === 'function') {
         return new SpaintCompositeComponentWrapper(element);
+    } else {
+        return new SpaintDOMComponent(Spaint.createElement('div', null, element));
     }
 }
 
