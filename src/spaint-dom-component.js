@@ -32,8 +32,8 @@ class SpaintDOMComponent {
         if (!nextContent) {
             this.updateTextContent('');
         } else if (JSON.stringify(lastContent) !== JSON.stringify(nextContent)) {   //TODO: use correct equals.
-            //nextContent.mountComponent(this._hostNode.parentElement);
-            //this.updateTextContent('' + nextContent);
+            nextContent.mountComponent(this._hostNode.parentElement);
+            this.updateTextContent('' + nextContent);
             this.unmountInnerComponent();
             if (nextContent instanceof Array) {
                 for (const comp in nextContent) {

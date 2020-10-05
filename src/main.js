@@ -38,10 +38,7 @@ setTimeout(function () {
     });
 
     Spaint.render(
-        node({
-            type: Header,
-            content: ['Text', Title, Title]
-        }),
+        InnerTitle,
         document.getElementById("root")
     );
 }, 2000);
